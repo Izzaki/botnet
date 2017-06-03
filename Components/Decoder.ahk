@@ -1,34 +1,4 @@
-; @Connect
-class Connect
-{
-	static receiveLink := "http://www.izzaki.pl/zombie/receive/" . Zombie.getName()
-	static notationLink:= "http://www.izzaki.pl/zombie/notation/" . Zombie.getName()
-	static updateLink := "http://www.izzaki.pl/zombie/download"
-	
-	getNotationLink(notation){
-		return this.notationLink . "&notation=" . notation
-	}
-	
-	parseResponse(response)
-	{
-		if(!response){
-			return false
-		}
-		
-		commands := strSplit(response, "|")
-		
-		for c in commands{
-			command := commands[c]		
-			Zombie.doCommand(command)
-		}
-	}
-	
-	toFile(response){
-		if(fileExist("response.html"))
-			fileDelete, response.html
-		fileAppend, % response, response.html
-	}
-	
+class Decoder {
 	urlDecode(str){
 		Loop
 			If RegExMatch(str, "i)(?<=%)[\da-f]{1,2}", hex)

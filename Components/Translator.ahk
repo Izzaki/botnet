@@ -1,6 +1,5 @@
-TTS(oVoice, command, param1="", param2="") {		; by Learning one. For AHK_L. Thanks: jballi, Sean, Frankie.
-	; AHK forum location:	www.autohotkey.com/forum/topic57773.html
-	; Read more:			msdn.microsoft.com/en-us/library/ms723602(v=VS.85).aspx, www.autohotkey.com/forum/topic45471.html, www.autohotkey.com/forum/topic83162.html
+TTS(oVoice, command, param1="", param2="") {
+	
 	static CommandList := "ToggleSpeak,Speak,SpeakWait,Pause,Stop,SetRate,SetVolume,SetPitch,SetVoice,GetVoices,GetStatus,GetCount,SpeakToFile"
 	if command not in %CommandList%
 	{
@@ -117,7 +116,7 @@ TTS(oVoice, command, param1="", param2="") {		; by Learning one. For AHK_L. Than
 	}
 }	
 
- TTS_CreateVoice(VoiceName="", VoiceRate="", VoiceVolume="", VoicePitch="") {		; by Learning one. For AHK_L.
+TTS_CreateVoice(VoiceName="", VoiceRate="", VoiceVolume="", VoicePitch="") {		; by Learning one. For AHK_L.
 	oVoice := ComObjCreate("SAPI.SpVoice")
 	if !(VoiceName = "")
 		TTS(oVoice, "SetVoice", VoiceName)
