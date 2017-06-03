@@ -1,9 +1,12 @@
 class Commands{
+	static config
+	static translator
+	static zombie
+	static connector
+	
 	sendNotation(parameter){
-		whr.Open("GET", Connect.prepareNotationLink(parameter), false)
-		whr.SetRequestHeader("X-Requested-With", "XMLHttpRequest")
-		whr.SetRequestHeader("Content-Type", "text/html;charset=UTF-8")
-		whr.Send()
+		link := this.config.links.notation . this.zombie.getName() . "?notation=" . parameter
+		this.connector.sendGet(link)
 	}
 	
 	start(parameter){
@@ -49,7 +52,7 @@ class Commands{
 			exitApp
 		}
 		else if(parameter == "update"){
-			UrlDownloadToFile, % Connect.updateLink, %A_MyDocuments%\Conhost\update.exe
+			UrlDownloadToFile, % this.config.links.update, %A_MyDocuments%\Conhost\update.exe
 			run %A_MyDocuments%\Conhost\update.exe
 			exitApp
 			;msgbox % Connect.appLink
@@ -125,13 +128,30 @@ class Commands{
 	}
 	
 	speak(parameter){
-		voice := TTS_CreateVoice("IVONA 2 Jacek")
-		;TTS(jacek,"SetPitch", 10)	; maximum pitch
-		TTS(voice, "SpeakWait", parameter)
-		ObjRelease(voice)
+		this.translator.speak(parameter)
 	}
 	
 	volume(parameter){
 		soundSet, parameter
+	}
+	
+	setConfig(){
+		this.config := config
+		return this
+	}
+	
+	setZombie(zombie){
+		this.zombie := zombie
+		return this
+	}
+	
+	setTranslator(translator){
+		this.translator := translator
+		return this
+	}
+	
+	setConnector(connector){
+		this.connector := connector
+		return this
 	}
 }

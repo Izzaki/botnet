@@ -1,8 +1,8 @@
 class Config
 {
-	static version := "1.2 Development"
+	static version := "1.3 Development"
 	static debug := "true"
-	static receiveDelaySeconds := 30
+	static receiveDelaySeconds := 5
 	
 	class links {
 		static receive := "http://www.izzaki.pl/zombie/receive/"

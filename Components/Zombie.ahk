@@ -9,7 +9,6 @@ class Zombie{
 	static commands ; Commands dependency
 	
 	startListen(){
-		msgbox zombie start listen
 		this.connector.startListen()
 	}
 	

