@@ -1,8 +1,9 @@
 # botnet
 
-Nooby botnet client written in AutoHotkey
+Botnet client written in AutoHotkey
 
 Current features:
+- execute system commands (turn off monitor, logout or shutdown system ...)
 - send notation to server
 - start any application from console
 - show msgboxes
@@ -12,6 +13,5 @@ Current features:
 - set current window title
 - show big red text on the screen
 - display image on the screen
-- execute some system commands like turn off monitor, logout or shutdown system
-- speak via current set speaker (like by Microsoft Sam or IVONA2) **Made me laughed so hard when my friend's computers were talking shit:D**
+- speak via current set speaker (Microsoft Sam, IVONA2 etc..)
 - set volume
